@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CameraCameleon</string>
+
+    <string name="test_url">https://media.npr.org/assets/img/2017/04/25/istock-115796521-fcf434f36d3d0865301cdcb9c996cfd80578ca99-s800-c85.jpg</string>
+
+    <string name="btn_start_requests">Start Requests</string>
+    <string name="intro">Enter IP for POCStreamer</string>
+    <string name="sending_request">Sending request&#8230;</string>
+</resources>
