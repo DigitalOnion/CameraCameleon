@@ -2,6 +2,7 @@ package com.magicleap.cameracameleon;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,6 +77,28 @@ public class MainActivity extends AppCompatActivity {
                 .into(imageView);
     }
 
+    public void onClickBtnTest(View view) {
+        String url = getString(R.string.test_base_url);
+        String endPoint = getString(R.string.test_end_point);
+        String fileUrl = getString(R.string.test_filename);
+        WebServiceController webController = new WebServiceController(new MyWebServiceEvents());
+        webController.start(url, endPoint, fileUrl);
+    }
+
+    private class MyWebServiceEvents implements WebServiceEvents {
+
+        @Override
+        public void onSuccess(Bitmap bitmap) {
+            ImageView dump = findViewById(R.id.dump);
+            dump.setImageBitmap(bitmap);
+        }
+
+        @Override
+        public void onFailure(String message) {
+
+        }
+    }
+
     private class MyTimer {
         private boolean ticking;
         private CountDownTimer countDownTimer;
@@ -85,17 +108,11 @@ public class MainActivity extends AppCompatActivity {
             countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
                 @Override
                 public void onTick(long l) {
-                    Log.d("LUIS", "Ticki!");
-                    Glide
-                            .with(MainActivity.this)
-                            .asBitmap()
-                            .apply(new RequestOptions()
-                                    .skipMemoryCache(true)
-                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                    .dontAnimate()
-                            )
-                            .load(base_url)
-                            .into(imageView);
+                    String endPoint = "";
+                    String fileUrl = "";
+                    WebServiceController webController = new WebServiceController(new MyWebServiceEvents());
+                    webController.start(base_url, endPoint, fileUrl);
+
                 }
 
                 @Override
